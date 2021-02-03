@@ -1,0 +1,25 @@
+Single database
+
+around 10 tables
+
+Triggers to manage events that occur
+
+views to keep sensitive data private
+
+indexes to make it easier to view the data
+
+
+Functionality
+
+Link a customer to a store
+
+Track a device history by it's Id
+
+change the price of a product as it moves through the supply chain
+
+a product can be returned
+
+when a product is returned it is moved back through the supply chain
+
+
+
