@@ -1,5 +1,26 @@
 ----------------------------------------VIEWS----------------------------------------
 
+if Object_id('v_geography_overview') is not null
+	drop view v_geography_overview
+go
+
+create view v_geography_overview as
+select zone_name as 'Zone',country_name as 'Country',continent_name as 'Continent' from zones inner join countries on fk_country_id=pk_country_id inner join continents on fk_continent_id = pk_continent_id
+
+if Object_id('v_supply_overview') is not null
+	drop view v_supply_overview
+go
+
+create view v_supply_overview as
+select store_name as 'Store',channel_partner_name as 'Channel Partner',secondary_distributor_name as 'Sub Distibutor',distributor_name as 'Distibutor',wearhouse_name as 'Warehouse',production_house_name as 'Production House'
+	from stores 
+	inner join channel_partners on fk_channel_partner_id=pk_channel_partner_id
+	inner join secondary_distributors on fk_secondary_distributor_id=pk_secondary_distributor_id
+	inner join distributors on fk_distributor_id=pk_distributor_id
+	inner join warehouses on fk_warehouse_id=pk_warehouse_id
+	inner join production_houses on fk_production_house_id=pk_production_house_id
+
+
 if Object_id('v_manufacture_events') is not null
 	drop view v_manufacture_events
 go
@@ -405,6 +426,21 @@ return
 --returns a table with all store returns
 go
 
+if Object_id('fn_find_number_of_models') is not null
+	drop function fn_find_number_of_models
+go
+
+--parameter, the id of the channel you wish to find the inventory of
+create function fn_find_number_of_models(
+	@model_name varchar(30)
+)
+returns table
+as
+
+return
+	select pk_serial_number as 'Device',model_name as 'Model' from devices inner join models on fk_model_id=pk_model_id where model_name=@model_name
+--returns a table with all store returns
+go
 
 ----------------------------------------END FUNCTIONS----------------------------------------
 
